@@ -12,7 +12,7 @@ public class Randoms implements Iterable<Integer> {
 
     public Randoms(int min, int max) {
         this.random = new Random();
-        while ( number != max) {
+        while (number != max) {
             number = random.nextInt(max - min + 1) + min;
             numbers.add(number);
         }
