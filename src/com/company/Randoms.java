@@ -8,19 +8,33 @@ import java.util.Random;
 public class Randoms implements Iterable<Integer> {
     protected Random random;
     private List<Integer> numbers = new ArrayList();
-    private int number = 0;
+    private final int max, min;
 
     public Randoms(int min, int max) {
         this.random = new Random();
-        while (number != max) {
-            number = random.nextInt(max - min + 1) + min;
-            numbers.add(number);
-        }
+        this.max = max;
+        this.min = min;
+        numbers.add(random.nextInt(max - min + 1) + min);
 
     }
 
     @Override
     public Iterator<Integer> iterator() {
-        return numbers.iterator();
+        return new Iterator<Integer>() {
+            int nextIndex = 0;
+
+            @Override
+            public boolean hasNext() {
+                return true;
+            }
+
+            @Override
+            public Integer next() {
+                int index = nextIndex;
+                nextIndex++;
+                numbers.add(random.nextInt(max - min + 1) + min);
+                return numbers.get(index);
+            }
+        };
     }
 }
